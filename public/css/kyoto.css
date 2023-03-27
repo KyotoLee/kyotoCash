@@ -1,4 +1,6 @@
 @import "common.css";
-
+.main-sidebar {
+    background-color: #ffffff;
+}
 
 @import "register.css";

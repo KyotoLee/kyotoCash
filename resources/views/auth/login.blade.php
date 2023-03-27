@@ -1,4 +1,4 @@
-@extends('layouts.kyoto')
+@extends('layouts.kyotoAuth')
 @section('title',  'Kyoto Cash - Login')
 @section('content')
 <div class="container">
@@ -11,8 +11,8 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="form1Example13">Email address</label>
-                                    <input type="email" id="email"  class="form-control form-control-lg @error('email') is-invalid @enderror " required autocomplete="email"/>
+                                    <label class="form-label" for="form1Example13">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror " required autocomplete="email" placeholder="Nhập email của bạn"/>
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form1Example23">Password</label>
-                                    <input type="password" id="password" class="form-control form-control-lg @error('password') is-invalid @enderror " required autocomplete="current-password"/>
+                                    <input type="password" id="password" name="password" placeholder="Nhập password của bạn" class="form-control form-control-lg @error('password') is-invalid @enderror " required autocomplete="current-password"/>
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -37,7 +37,7 @@
                                     <a href="#!">Forgot password?</a>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
-                                <p>Don't have an account? <a href="#!" class="link-info">Register here</a></p>
+                                <p>Don't have an account? <a href="{{route('register')}}" class="link-info">Register here</a></p>
                             </form>
                         </div>
                         <div class="col-md-8 col-lg-7 col-xl-6">

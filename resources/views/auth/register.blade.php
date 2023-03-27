@@ -1,4 +1,4 @@
-@extends('layouts.kyoto')
+@extends('layouts.kyotoAuth')
 @section('title',  'Kyoto Cash - Register')
 @section('content')
 <div class="row justify-content-center" id="register">
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="password">Mật khẩu (*)</label>
-                                    <input type="text" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Nhập mật khẩu của bạn ít nhất 6 kí tự bao gồm chữ và số" name="password"/>
+                                    <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Nhập mật khẩu của bạn ít nhất 6 kí tự bao gồm chữ và số" name="password"/>
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="password_confirmation">Xác nhận mật khẩu (*)</label>
-                                    <input type="text" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Nhập lại mật khẩu của bạn để xác nhận" name="password_confirmation"/>
+                                    <input type="password" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Nhập lại mật khẩu của bạn để xác nhận" name="password_confirmation"/>
                                     @error('confirm-password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -54,8 +54,8 @@
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="store">Của hàng (*)</label>
-                                    <input type="text" id="store" class="form-control @error('store') is-invalid @enderror" placeholder="Nhập tên cửa hàng của bạn" name="store"/>
-                                    @error('store')
+                                    <input type="text" id="store" class="form-control @error('store_name') is-invalid @enderror" placeholder="Nhập tên cửa hàng của bạn" name="store_name"/>
+                                    @error('store_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -66,7 +66,7 @@
                                     <input type="text" id="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Nhập số điện thoại của bạn" name="phone"/>
                                     @error('phone')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $message }}</strong>store_name
                                     </span>
                                     @enderror
                                 </div>
