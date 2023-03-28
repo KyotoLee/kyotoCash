@@ -1,0 +1,7 @@
+.color-default {
+    color: #0d6efd;
+}
+
+.background-color-default:hover {
+    background-color: #0d6efd !important;
+}

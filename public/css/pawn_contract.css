@@ -1,0 +1,12 @@
+#pawn-contract button.btn_add_new {
+    background-color: #ffffff !important;
+    border: 1px solid #0d6efd;
+    border-radius: 5px;
+}
+
+#pawn-contract button.btn_add_new:hover {
+    background-color: #0d6efd !important;
+    border: 1px solid #0d6efd;
+    border-radius: 5px;
+    color: #ffffff;
+}
