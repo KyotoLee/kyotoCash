@@ -24,7 +24,7 @@
                     <table
                         class="table col-xl-12 table-products table-responsive-sm-12 table-responsive-md-12 table-responsive-lg-12 table-responsive-xl-12">
                         <thead>
-                        <tr>
+                            <tr>
                             <th scope="col">#</th>
                             <th scope="col">Mã hơp đồng</th>
                             <th scope="col">Tên khách hàng</th>
@@ -44,24 +44,29 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
+                            @if(!empty($listPawns))
+                                @foreach($listPawns as $pawn)
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>{{$pawn->id}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                @endforeach
+                            @else
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -71,5 +76,9 @@
     @include('component.pawn_contract')
 @endsection
 @section('script')
+    <script>
+        let URL_CREATE_PAWN = '{{route('pawn_create')}}';
+        let USER_ID = '{{auth()->user()->id}}';
+    </script>
     <script src="{{asset('js/pawn.js')}}"></script>
 @endsection

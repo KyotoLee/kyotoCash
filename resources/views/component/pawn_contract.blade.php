@@ -1,15 +1,21 @@
-<div class="modal fade pawn_contract_modal" tabindex="-1" role="dialog" aria-labelledby="pawn_contract" aria-hidden="true">
+<div class="modal fade pawn_contract_modal" tabindex="-1" role="dialog" aria-labelledby="pawn_contract" aria-hidden="true" id="pawn_contract_modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="exampleModalLabel"><b>HỢP ĐỒNG CẦM ĐỒ</b></h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close btn_close_modal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form id="form_pawn_contract">
                 <div class="modal-body">
                     <div class="customer_info">
+                        <div class="form-group col-sm-12">
+                            <label for="status_asset" class="col-form-label">Cửa hàng:</label>
+                            <select class="form-select" aria-label="Default select example" name="store_id" id="store_id">
+
+                            </select>
+                        </div>
                         <h5 class="label_info"><b>THÔNG TIN KHÁCH HÀNG</b></h5>
                         <div class="box_input">
                             <div class="form-group col-sm-12">
@@ -70,7 +76,7 @@
                             <div class="form-group col-sm-12 d-flex">
                                 <div class="col-sm-6">
                                     <label for="type_asset" class="col-form-label">Loại tài sản (*):</label>
-                                    <input type="text" name="type_asset" class="form-control" id="type_asseta">
+                                    <input type="text" name="type_asset" class="form-control" id="type_asset">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="code_asset" class="col-form-label">Mã tài sản:</label>
@@ -79,12 +85,12 @@
                             </div>
                             <div class="form-group col-sm-12 d-flex">
                                 <div class="col-sm-6">
-                                    <label for="customer_ident_num" class="col-form-label">Tên tài sản:</label>
-                                    <input type="text" name="customer_ident_num" class="form-control" id="customer_ident_num">
+                                    <label for="name_asset" class="col-form-label">Tên tài sản:</label>
+                                    <input type="text" name="name_asset" class="form-control" id="name_asset">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="status_asset" class="col-form-label">Trạng thái:</label>
-                                    <select class="form-select" aria-label="Default select example" name="status_asset">
+                                    <select class="form-select" aria-label="Default select example" name="status_asset" id="status_asset">
                                         <option selected value="1">Đang hoạt động</option>
                                         <option value="2">Hư hỏng nhẹ (trầy, xước,...)</option>
                                         <option value="3">Hư hỏng nặng (vỡ, va đập,...)</option>
@@ -98,7 +104,7 @@
                                         <h5><b>Thông tin chi tiết</b></h5>
                                     </div>
                                     <div class="col-sm-4">
-                                        <button class="btn btn_add_detail"><i class="fas fa-plus" style="color: #ffffff;"></i> <span>Thêm mới</span></button>
+                                        <button type="button" class="btn btn_add_detail"><i class="fas fa-plus" style="color: #ffffff;"></i> <span>Thêm mới</span></button>
                                     </div>
                                 </div>
                                 <div>
@@ -122,14 +128,14 @@
                                     <label for="pawn_type" class="col-form-label">Hình thức lãi:</label>
                                     <div class="col-sm-12 d-flex justify-content-between">
                                         <div class="col-sm-6">
-                                            <select class="form-select" aria-label="" name="pawn_type">
+                                            <select class="form-select" aria-label="" name="pawn_type" id="pawn_type">
                                                 <option selected value="1">Lãi ngày</option>
                                                 <option value="2">Lãi tuần</option>
                                                 <option value="3">Lãi tháng</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-6">
-                                            <select class="form-select" aria-label="" name="pawn_type_date">
+                                            <select class="form-select" aria-label="" name="pawn_type_date" id="pawn_type_date">
                                                 <option selected value="1">Thu lãi sau</option>
                                                 <option value="2">Thu lãi trước</option>
                                             </select>
@@ -145,7 +151,7 @@
                                             <input type="text" name="interest" class="form-control" id="interest">
                                         </div>
                                         <div class="col-sm-6">
-                                            <select class="form-select" aria-label="" name="interest_type">
+                                            <select class="form-select" aria-label="" name="interest_type" id="interest_type">
                                                 <option selected value="1">k/1 triệu</option>
                                                 <option value="2">k/1 ngày</option>
                                             </select>
@@ -171,7 +177,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Tạo hơp đồng</button>
+                    <button type="submit" class="btn btn-primary btn_create_pawn">Tạo hơp đồng</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
                 </div>
             </form>

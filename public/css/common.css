@@ -10,7 +10,7 @@ i {
     cursor: pointer;
 }
 
-span.error {
+label.error {
     color: red;
 }
 input.error {

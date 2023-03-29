@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('customer_id');
             $table->string('store_id');
-            $table->string('type');
+            $table->tinyInteger('type');
             $table->tinyInteger('status');
             $table->json('loan_info');
             $table->string('created_by');

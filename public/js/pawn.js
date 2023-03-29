@@ -26,6 +26,11 @@ $(document).ready(function() {
         $('.box_asset_detail').append(detail)
     })
 
+    $('.btn_add_new').click(function () {
+        resetModalCreate();
+        getListStores();
+    })
+
     $('body').on( "click", ".btn_remove_detail", function() {
         let index_remove = $(this).children().data('index')
         $(".box_asset_detail").children().eq(index_remove).remove();
@@ -45,7 +50,29 @@ $(document).ready(function() {
         return this.optional(element) || regex.test(value);
     });
 
-
+    function getListStores() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/stores/list/' + USER_ID,
+            type: 'GET',
+            success: function(res){
+                let listOption = '';
+                if(res.data.length > 0) {
+                    for(let storeIndex = 0; storeIndex < res.data.length; storeIndex++) {
+                        listOption += '<option ' + (storeIndex === 0 ? 'selected' : '') + 'selected value="' + res.data[storeIndex].id + '">' + res.data[storeIndex].name + '</option>';
+                    }
+                }
+                console.log(listOption)
+                $('#store_id').append(listOption);
+            },
+            error: function (xhr, status, error) {
+            }
+        })
+    }
 
     $("#form_pawn_contract").validate({
         rules: {
@@ -131,26 +158,83 @@ $(document).ready(function() {
                 .closest('.form-group .form-control').removeClass('is-invalid') // set success class to the control group
         },
         submitHandler: function(form) {
-            $('#btn-register').prop('disabled', true);
+            $('.btn_create_pawn').prop('disabled', true);
             let formData = new FormData();
-            formData.append('kana_first_name', $('#user_name_kana').val());
-            if ($("input[name='input-check-register']").is(":checked") || $("input[name='input-check-register']").length == 0) {
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: '',
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: function(data) {
-                        $('#btn-register').prop('disabled', false);
-                        if (data.success == true) {
-                        }
-                    }
-                })
+            formData.append('customer_name', $('#customer_name').val());
+            formData.append('store_id', $('#store_id').val());
+            formData.append('customer_phone', $('#customer_phone').val());
+            formData.append('customer_ident_num', $('#customer_ident_num').val());
+            formData.append('customer_ident_date', $('#customer_ident_date').val());
+            formData.append('address', $('#address').val());
+            formData.append('type_asset', $('#type_asset').val());
+            formData.append('code_asset', $('#code_asset').val());
+            formData.append('name_asset', $('#name_asset').val());
+            formData.append('status_asset', $('#status_asset').val());
+            formData.append('pawn_price', $('#pawn_price').val());
+            formData.append('pawn_type', $('#pawn_type').val());
+            formData.append('pawn_type_date', $('#pawn_type_date').val());
+            formData.append('interest', $('#interest').val());
+            formData.append('interest_type', $('#interest_type').val());
+            formData.append('interest_cycle', $('#interest_cycle').val());
+            formData.append('description', $('#description').val());
+            let detail_asset = []
+            if($('.box_detail').length > 0) {
+                for(let index = 0; index < $('.box_detail').length; index++) {
+                    detail_asset.push($(".box_asset_detail").children().eq(index).children().eq(1).children().eq(0).children().val())
+                }
             }
-            return false;
+            formData.append('detail_asset', detail_asset);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: URL_CREATE_PAWN,
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: formData,
+                success: function(data) {
+                    $('.btn_create_pawn').prop('disabled', false);
+                    $('.btn_close_modal').click();
+                    swal({
+                        title: "Tạo hợp đồng thành công!",
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+
+                    });
+                },
+                error: function () {
+                    $('.btn_create_pawn').prop('disabled', false);
+                }
+            })
         }
     })
+
+    function resetModalCreate() {
+        $('#customer_name').val('');
+        $('#customer_phone').val('');
+        $('#customer_ident_num').val('');
+        $('#customer_ident_date').val('');
+        $('#address').val('');
+        $('#type_asset').val('');
+        $('#code_asset').val('');
+        $('#name_asset').val('');
+        $('#status_asset').val('1');
+        $('#pawn_price').val('');
+        $('#pawn_type').val('1');
+        $('#pawn_type_date').val('1');
+        $('#interest').val('');
+        $('#interest_type').val('1');
+        $('#interest_cycle').val('');
+        $('#description').val('');
+        $(".box_asset_detail").empty();
+        $("input").removeClass('is-valid').removeClass('is-invalid')
+        $("label.error").remove()
+    }
 })
 

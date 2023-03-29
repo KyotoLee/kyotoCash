@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="{{asset('/css/OverlayScrollbars.min.css')}}">
     <link rel="stylesheet" href="{{asset('/css/daterangepicker.css')}}">
     <link rel="stylesheet" href="{{asset('/css/kyoto.css')}}">
-
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
@@ -40,5 +39,6 @@
     <script src="{{asset('/js/daterangepicker.js')}}"></script>
     <script src="{{asset('/js/jquery.overlayScrollbars.min.js')}}"></script>
     <script src="{{asset('/js/style.js')}}"></script>
+    <script src="{{ asset('/js/sweetalert2.all.js') }}"></script>
     @yield('script')
 </html>
