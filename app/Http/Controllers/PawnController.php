@@ -59,6 +59,7 @@ class PawnController
                 'interest' => $dataPawn['interest'],
                 'interest_type' => $dataPawn['interest_type'],
                 'interest_cycle' => $dataPawn['interest_cycle'],
+                'loan_date' => $dataPawn['loan_date'],
                 'description' => $dataPawn['description'],
             ],
             'created_by' => Auth::user()->id,
@@ -66,6 +67,7 @@ class PawnController
         $contract = $this->contractRepository->createOrUpdateContract($dataContract);
 
         // create asset
+
         $dataAsset  = [
             'contract_id' => $contract->id,
             'customer_id' => $customerId,
@@ -73,7 +75,7 @@ class PawnController
             'type' => $dataPawn['type_asset'],
             'code' => $dataPawn['code_asset'],
             'status' => $dataPawn['status_asset'],
-            'detail' => $dataPawn['detail_asset'],
+            'detail' => (object)explode('#', $dataPawn['detail_asset']),
             'created_by' => Auth::user()->id,
         ];
         $this->assetRepository->createOrUpdateAsset($dataAsset);

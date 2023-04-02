@@ -17,7 +17,7 @@ class ContractRepository extends BaseRepository
         return $this->model->create($dataContract);
     }
     public function getListPawns($type) {
-        return $this->model->
-                    join('customers', 'customers.customer_id')->where('type', $type)->get();
+        return $this->model->with(['customers', 'assets'])
+                    ->where('type', $type)->orderBy('created_at', 'desc')->paginate(10);
     }
 }

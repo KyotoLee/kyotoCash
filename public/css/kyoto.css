@@ -3,6 +3,10 @@
 .main-sidebar {
     background-color: #ffffff;
 }
+.pawn-contract {
+    background-color: #ffffff;
+    padding: 20px;
+}
 #pawn-contract button.btn_add_new {
     background-color: #ffffff !important;
     border: 1px solid #0d6efd;
@@ -52,6 +56,10 @@
 
 .pawn_contract_modal .modal-body .btn_remove_detail i {
     margin-right: 10px;
+}
+
+#pawn-contract .paginate {
+    margin-top: 20px;
 }
 
 @import "register.css";

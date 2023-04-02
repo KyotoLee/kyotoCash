@@ -14,7 +14,6 @@
 {{--                <a href="javascript:void(0)" class="d-block">Alexander Pierce</a>--}}
 {{--            </div>--}}
 {{--        </div>--}}
-
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
@@ -24,7 +23,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-open">
-                    <a href="{{route('pawn')}}" class="nav-link {{$_SERVER['REQUEST_URI'] == '/pawn' ? 'active' : ''}}">
+                    <a href="{{route('pawn')}}" class="nav-link {{preg_match('/^\/pawn(.)*/', $_SERVER['REQUEST_URI']) ? 'active' : ''}}">
                         <i class="fa fa-tachometer"></i>
                         <p>Cầm đồ</p>
                     </a>

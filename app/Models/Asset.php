@@ -22,4 +22,14 @@ class Asset extends Model
     protected $casts = [
         'detail' => 'array'
     ];
+
+    public function customers ()
+    {
+        return $this->belongsTo (Customer::class);
+    }
+
+    public function contracts ()
+    {
+        return $this->hasOne (Contract::class);
+    }
 }

@@ -11,7 +11,7 @@
     </div>
     <section class="content" id="pawn-contract">
         <div class="container-fluid">
-            <div class="row" style="background-color: #ffffff">
+            <div class="row pawn-contract">
                 <div class="box_add_new d-flex justify-content-between">
                     <div class="button_add_new">
                         <button class="btn btn_add_new background-color-default" data-toggle="modal" data-target=".pawn_contract_modal">Tạo hợp đồng</button>
@@ -29,16 +29,10 @@
                             <th scope="col">Mã hơp đồng</th>
                             <th scope="col">Tên khách hàng</th>
                             <th scope="col">Tài sản thế chấp</th>
-                            <th scope="col">Tình trạng</th>
                             <th scope="col">Số tiền cầm</th>
-                            <th scope="col">Thời gian cầm đồ</th>
-                            <th scope="col">Thời gian phải đóng lãi</th>
-                            <th scope="col">Số tiễn đã đóng lãi</th>
-                            <th scope="col">Nợ cũ</th>
+                            <th scope="col">Thời gian phải đóng lãi tiếp theo</th>
                             <th scope="col">Lãi đến kì hiện tại</th>
-                            <th scope="col">Hình thức lãi</th>
                             <th scope="col">Lãi suất</th>
-                            <th scope="col">Hình thức thu</th>
                             <th scope="col">Kì lãi</th>
                             <th scope="col">Chức năng</th>
                         </tr>
@@ -49,26 +43,46 @@
                                 <tr>
                                     <th scope="row">1</th>
                                     <td>{{$pawn->id}}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$pawn->customers->name}}</td>
+                                    <td>{{$pawn->assets ? $pawn->assets->name : ''}}</td>
+                                    <td class="hide info_pawn_{{$pawn->id}}"
+                                        data-store="{{$pawn->store_id}}"
+                                        data-customer="{{$pawn->customers->name . '*' .
+                                                        $pawn->customers->phone . '*'.
+                                                        $pawn->customers->identification['customer_ident_num'] . '*' .
+                                                        $pawn->customers->identification['customer_ident_date']. '*' .
+                                                        $pawn->customers->address}}"
+                                        data-asset-type="{{$pawn->assets->type }}"
+                                        data-asset-name="{{$pawn->assets->name }}"
+                                        data-asset-code="{{$pawn->assets->code }}"
+                                        data-asset-status="{{$pawn->assets->status }}"
+                                        data-asset-datail="{{json_encode($pawn->assets->detail) }}"
+                                        data-loan-date="{{($pawn->loan_info)['loan_date'] ?? ''}}"
+                                        data-pawn-type="{{($pawn->loan_info)['pawn_type'] ?? ''}}"
+                                        data-pawn-type-date="{{($pawn->loan_info)['pawn_type_date'] ?? ''}}"
+                                        data-pawn-price="{{($pawn->loan_info)['pawn_price'] ?? ''}}"
+                                        data-interest="{{($pawn->loan_info)['interest'] ?? ''}}"
+                                        data-interest-type="{{($pawn->loan_info)['interest_type'] ?? ''}}"
+                                        data-interest-cycle="{{($pawn->loan_info)['interest_cycle'] ?? ''}}"
+                                        data-description="{{($pawn->loan_info)['description'] ?? ''}}"
+                                    ></td>
+                                    <td>{{($pawn->loan_info)['pawn_price']}}</td>
+                                    <td>{{$pawn->customers->name}}</td>
+                                    <td>{{$pawn->customers->name}}</td>
+                                    <td>{{ isset(($pawn->loan_info)['interest']) ? (($pawn->loan_info)['interest'] . ' ' . App\Helpers\Helper::showInterestType(($pawn->loan_info)['interest_type'])) : ''}}</td>
+                                    <td>{{($pawn->loan_info)['interest_cycle'] ?? ''}}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-edit-pawn btn_edit_{{$pawn->id}}" data-index="{{$pawn->id}}" data-toggle="modal" data-target=".pawn_contract_modal">Xem chi tiết</button>
+                                    </td>
                                 </tr>
                                 @endforeach
                             @else
                             @endif
                         </tbody>
                     </table>
+                </div>
+                <div class="paginate">
+                    {{ $listPawns->links('paginate') }}
                 </div>
             </div>
         </div>
@@ -79,6 +93,8 @@
     <script>
         let URL_CREATE_PAWN = '{{route('pawn_create')}}';
         let USER_ID = '{{auth()->user()->id}}';
+        let EVENT_POPUP = 1;
+        let INDEX_RECORD = null;
     </script>
     <script src="{{asset('js/pawn.js')}}"></script>
 @endsection

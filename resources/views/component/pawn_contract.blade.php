@@ -10,7 +10,7 @@
             <form id="form_pawn_contract">
                 <div class="modal-body">
                     <div class="customer_info">
-                        <div class="form-group col-sm-12">
+                        <div class="form-group col-sm-12 form-group-store">
                             <label for="status_asset" class="col-form-label">Cửa hàng:</label>
                             <select class="form-select" aria-label="Default select example" name="store_id" id="store_id">
 
@@ -46,7 +46,7 @@
                                     <input type="text" name="customer_name" class="form-control" id="customer_name">
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="customer_phone" class="col-form-label">Só điện thoại (*):</label>
+                                    <label for="customer_phone" class="col-form-label">Số điện thoại (*):</label>
                                     <input type="text" name="customer_phone" class="form-control" id="customer_phone">
                                 </div>
                             </div>

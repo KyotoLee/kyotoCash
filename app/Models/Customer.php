@@ -19,4 +19,9 @@ class Customer extends Model
     protected $casts = [
         'identification' => 'array'
     ];
+
+    public function contracts ()
+    {
+        return $this->hasMany (Contract::class);
+    }
 }
