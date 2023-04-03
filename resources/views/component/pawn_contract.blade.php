@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form_pawn_contract">
+            <form id="form_pawn_contract" class="form_pawn_create_contract">
                 <div class="modal-body">
                     <div class="customer_info">
                         <div class="form-group col-sm-12 form-group-store">
@@ -178,6 +178,7 @@
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary btn_create_pawn">Tạo hơp đồng</button>
+                    <button type="submit" class="btn btn-primary btn_update_pawn">Thay đổi</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
                 </div>
             </form>

@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/pawn', [App\Http\Controllers\PawnController::class, 'index'])->name('pawn');
+    Route::put('/pawn/update', [App\Http\Controllers\PawnController::class, 'updateContract'])->name('pawn_update');
     Route::post('/pawn-create', [App\Http\Controllers\PawnController::class, 'create'])->name('pawn_create');
 
     Route::get('/stores/list/{userId}', [App\Http\Controllers\StoreController::class, 'getListStore'])->name('listStore');

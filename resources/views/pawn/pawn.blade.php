@@ -47,6 +47,7 @@
                                     <td>{{$pawn->assets ? $pawn->assets->name : ''}}</td>
                                     <td class="hide info_pawn_{{$pawn->id}}"
                                         data-store="{{$pawn->store_id}}"
+                                        data-contract="{{$pawn->id}}"
                                         data-customer="{{$pawn->customers->name . '*' .
                                                         $pawn->customers->phone . '*'.
                                                         $pawn->customers->identification['customer_ident_num'] . '*' .
@@ -73,6 +74,7 @@
                                     <td>{{($pawn->loan_info)['interest_cycle'] ?? ''}}</td>
                                     <td>
                                         <button class="btn btn-primary btn-edit-pawn btn_edit_{{$pawn->id}}" data-index="{{$pawn->id}}" data-toggle="modal" data-target=".pawn_contract_modal">Xem chi tiết</button>
+                                        <button class="btn btn-primary btn-pay-interest btn_interest_{{$pawn->id}}" data-index="{{$pawn->id}}" data-toggle="modal" data-target=".pay_interest_modal">Đóng lãi</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -88,10 +90,12 @@
         </div>
     </section>
     @include('component.pawn_contract')
+    @include('component.pay_interest')
 @endsection
 @section('script')
     <script>
         let URL_CREATE_PAWN = '{{route('pawn_create')}}';
+        let URL_UPDATE_PAWN = '{{route('pawn_update')}}';
         let USER_ID = '{{auth()->user()->id}}';
         let EVENT_POPUP = 1;
         let INDEX_RECORD = null;

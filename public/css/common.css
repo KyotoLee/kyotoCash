@@ -32,3 +32,7 @@ input.error {
 .fw-700 {
     font-weight: 700;
 }
+
+.hide {
+    display: none;
+}

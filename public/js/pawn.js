@@ -87,7 +87,84 @@ $(document).ready(function() {
         })
     }
 
-    $("#form_pawn_contract").validate({
+    $('.btn_update_pawn').click(function (e) {
+        e.preventDefault();
+        $('.error').remove();
+        let interest = $('#interest').val()
+        let interestCycle = $('#interest_cycle').val()
+        if(validateRequired(interest)) {
+            $('#interest').addClass('is-invalid')
+            $('#interest').parent().append('<label for="interest" class="error">Vui lòng nhập số tiền lãi</label>');
+            return
+        }else if(!validateNumber(interest)) {
+            $('#interest').addClass('is-invalid')
+            $('#interest').parent().append('<label for="interest" class="error">Vui lòng nhập đúng định dạng số</label>');
+            return
+        }
+
+        if(validateRequired(interestCycle)) {
+            $('#interest_cycle').addClass('is-invalid')
+            $('#interest_cycle').parent().append('<label for="interest_cycle" class="error">Vui lòng nhập kì đóng lãi</label>');
+        }else if(!validateNumber(interestCycle)) {
+            $('#interest_cycle').addClass('is-invalid')
+            $('#interest_cycle').parent().append('<label for="interest_cycle" class="error">Vui lòng nhập đúng định dạng số</label>');
+        }
+
+        $('.btn_update_pawn').prop('disabled', true);
+        let formData = new FormData();
+        formData.append('contract_id', INDEX_RECORD);
+        formData.append('pawn_type', $('#pawn_type').val());
+        formData.append('pawn_price', $('#pawn_price').val());
+        formData.append('pawn_type_date', $('#pawn_type_date').val());
+        formData.append('interest', $('#interest').val());
+        formData.append('interest_type', $('#interest_type').val());
+        formData.append('interest_cycle', $('#interest_cycle').val());
+        formData.append('description', $('#description').val());
+        formData.append('_method', 'PUT');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: URL_UPDATE_PAWN,
+            processData: false,
+            contentType: false,
+            cache: false,
+            data: formData,
+            success: function(data) {
+                $('.btn_update_pawn').prop('disabled', false);
+                $('.btn_close_modal').click();
+                swal({
+                    title: "Cập nhập hợp đồng thành công!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+
+                });
+                setTimeout(function reload() {
+                    location.reload()
+                }, 2000)
+            },
+            error: function () {
+                $('.btn_create_pawn').prop('disabled', false);
+            }
+        })
+    })
+
+    function validateRequired(value) {
+        var regex = /^\s*$/;
+        return regex.test(value);
+    }
+
+    function validateNumber(value) {
+        var regex = /^\d*$/;
+        return regex.test(value);
+    }
+
+    $(".form_pawn_create_contract").validate({
         rules: {
             customer_name: {
                 required: true,
@@ -144,7 +221,7 @@ $(document).ready(function() {
             },
             interest_cycle: {
                 required: "Vui lòng nhập kì đóng lãi",
-                check_number: "Vui lòng nhập đúng định dạng tiền tệ",
+                check_number: "Vui lòng nhập đúng định dạng số",
             },
             loan_date: {
                 required: "Vui lòng nhập ngày thực hiện thế chấp",
@@ -255,10 +332,12 @@ $(document).ready(function() {
         $("label.error").remove()
         $('.btn_add_detail').show();
         $('.btn_create_pawn').show();
+        $('.btn_update_pawn').hide();
     }
 
     function displayDetailForEdit() {
         if(EVENT_POPUP == 2) {
+            $('#form_pawn_contract').attr('class', 'form_pawn_update_contract');
             let infoCustomer = ($('.info_pawn_' + INDEX_RECORD).data('customer')).split('*')
             $('#store_id').prop('disabled', 'disabled');
             $('input[name=type_customer]').attr("disabled",true);
@@ -289,22 +368,18 @@ $(document).ready(function() {
                 $('.box_asset_detail').append(detail)
             }
             $('#pawn_price').prop('disabled', 'disabled').val($('.info_pawn_' + INDEX_RECORD).data('pawn-price'));
-            $('#pawn_type').prop('disabled', 'disabled').val($('.info_pawn_' + INDEX_RECORD).data('pawn-type'));
-            $('#pawn_type_date').prop('disabled', 'disabled').val($('.info_pawn_' + INDEX_RECORD).data('pawn-type-date'));
-            $('#interest').prop('disabled', 'disabled').val($('.info_pawn_' + INDEX_RECORD).data('interest'));
-            $('#interest_type').prop('disabled', 'disabled').val($('.info_pawn_' + INDEX_RECORD).data('interest-type'));
-            $('#interest_cycle').prop('disabled', 'disabled').val($('.info_pawn_' + INDEX_RECORD).data('interest-cycle'));
+            $('#pawn_type').val($('.info_pawn_' + INDEX_RECORD).data('pawn-type'));
+            $('#pawn_type_date').val($('.info_pawn_' + INDEX_RECORD).data('pawn-type-date'));
+            $('#interest').val($('.info_pawn_' + INDEX_RECORD).data('interest'));
+            $('#interest_type').val($('.info_pawn_' + INDEX_RECORD).data('interest-type'));
+            $('#interest_cycle').val($('.info_pawn_' + INDEX_RECORD).data('interest-cycle'));
             $('#loan_date').prop('disabled', 'disabled').val($('.info_pawn_' + INDEX_RECORD).data('loan-date'));
-            $('#description').prop('disabled', 'disabled').val($('.info_pawn_' + INDEX_RECORD).data('description'));
+            $('#description').val($('.info_pawn_' + INDEX_RECORD).data('description'));
 
             $('.btn_add_detail').hide();
+            $('.btn_update_pawn').show();
             $('.btn_create_pawn').hide();
         }
     }
-    function checkPopupEdit() {
-        if(EVENT_POPUP == 2) {
 
-        }
-    }
 })
-

@@ -85,4 +85,24 @@ class PawnController
             'data' => []
         ]);
     }
+
+    public function updateContract(Request $request) {
+        $dataPawn = $request->except('_method');
+        // create pawn contract
+        $dataUpdateContract = [
+                'pawn_type' => $dataPawn['pawn_type'],
+                'pawn_type_date' => $dataPawn['pawn_type_date'],
+                'interest' => $dataPawn['interest'],
+                'interest_type' => $dataPawn['interest_type'],
+                'interest_cycle' => $dataPawn['interest_cycle'],
+                'description' => $dataPawn['description'],
+        ];
+        $contract = $this->contractRepository->updateContract($dataUpdateContract, $dataPawn['contract_id']);
+        if($contract) {
+            return response()->json([
+                'success' => 'Successfully',
+                'data' => []
+            ]);
+        }
+    }
 }
